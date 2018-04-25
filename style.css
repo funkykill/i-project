@@ -1,0 +1,168 @@
+
+.navbar-brand img {
+    width: 50px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+nav {
+    position: absolute;
+}
+
+.flex-sons {
+    border: 1px solid gray;
+    border-radius: 5px;
+    text-align: center;
+    width: 15%;
+}
+
+.flex-sons strong {
+    font-size: 2em;
+    display: block;
+    padding: 10px;
+}
+
+.flex-sons:nth-last-child(1) {
+    background-color: #ED4C67;
+}
+
+.flex-sons:nth-last-child(2) {
+    background-color: #27ae60;
+}
+
+.flex-sons:nth-last-child(3) {
+    background-color: #3498db;
+}
+
+.onder-header {
+    margin: 10px auto 0 auto;
+    width: 100%;
+    border-bottom: 5px solid gray;
+}
+
+.peroneal {
+    margin: auto;
+    padding: 10px;
+    clear: both;
+    text-align: center;
+}
+
+.peroneal > a {
+    margin: 10px;
+}
+.filter{
+    border-bottom: 5px solid gray;
+    text-align: center;
+}
+.binnen{
+    margin: 10px auto 10px auto;
+    width:90%;
+}
+.resultaat{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    border-bottom: 5px solid gray;
+}
+.resultaat form {
+    margin: 10px auto 10px auto;
+}
+.resultaat a{
+  float: right;
+}
+.items{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    flex-wrap: wrap;
+    margin: 20px auto;
+}
+.item{
+    width:30%;
+    border: 2px solid gray;
+    margin-bottom: 10px;
+    box-shadow: 10px 10px 49px -6px rgba(94,88,94,1);
+    border-radius: 25px ;
+}
+.item img,.item_information img{
+    width:100%;
+    border-radius: 25px 25px 0px 0px;
+}
+.item h6{
+    margin-left: 5px;
+    width: 100%;
+
+}
+.text p:nth-last-child(1){
+    float:right;
+    margin-right: 10px;
+}
+.text p:nth-last-child(2){
+    float:left;
+    margin-left: 5px;
+}
+.text{
+    width: 100%;
+    float: left;
+
+}
+.item a{
+    clear: both;
+    color: green;
+}
+.item a:hover{
+  color: green;
+  text-decoration: none;
+}
+.details{
+  width: 98%;
+  margin: 2px auto 10px auto;
+}
+.item_information{
+  width: 60%;
+  margin: 20px auto 50px auto;
+  border: 2px solid gray;
+  box-shadow: 10px 10px 49px -6px rgba(94,88,94,1);
+  border-radius: 25px ;
+}
+
+/***
+************************************Admin Page****************************
+***/
+.Admin{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.Admin .container{
+    width: 90%;
+    margin: 0;
+}
+.Admin .list-group{
+  width: 20%;
+    margin: 0 !important;
+}
+.idLink{
+  color: white;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px){
+    .flex{
+    display: none;
+    }
+    .item{
+        width:100%;
+    }
+    .selectpicker,#postal{
+      width: 100% !important;
+    }
+    .resultaat a{
+      float : none;
+      margin: 5px;
+    }
+}
