@@ -1,6 +1,6 @@
 
 .navbar-brand img {
-    width: 50px;
+    width: 150px;
 }
 
 .flex {
@@ -82,7 +82,7 @@ nav {
     margin: 20px auto;
 }
 .item{
-    width:30%;
+    width:22%;
     border: 2px solid gray;
     margin-bottom: 10px;
     box-shadow: 10px 10px 49px -6px rgba(94,88,94,1);

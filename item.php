@@ -1,7 +1,22 @@
 <?php
-$itemID = ''.$_GET['itemId'];
+require'includes/functie.php';
+include_once'header.php';
+require_once'breadcrumb.php';
+if(textkeeper('itemId')):
+$itemID = textkeeper('itemId');
 $items = selectWithJoin('*','Gebruiker G','Voorwerp V','v.verkoper = g.Gebruikersnaam',
 'V.voorwerpnummer ='.$itemID);
+$rubriek = selectWithJoin('*','rubriek R','Voorwerp_in_Rubriek VR','R.rubrieknummer = VR.Rubriek_op_Laagste_Niveau',
+'VR.voorwerpnummer = '.$itemID);
+$breadcrumbs[] = array(
+  'link'=>'index.php?rubriek='.$rubriek[0]['rubrieknummer'],
+  'title'=>$rubriek[0]['rubrieknaam']
+);
+$breadcrumbs[] = array(
+  'link'=>'#',
+  'title'=>$items[0]['title']
+);
+showBreadcrumb($breadcrumbs);
 ?>
 <div class="item_information">
   <?php  foreach ($items as $item): ?>
@@ -19,3 +34,11 @@ $items = selectWithJoin('*','Gebruiker G','Voorwerp V','v.verkoper = g.Gebruiker
   <p>EindsDatum: <?= $item['looptijdeindeDag'] ?></p>
   <?php endforeach ?>
 </div>
+<?php
+else:
+ ?>
+
+ <?php
+endif;
+include'footer.php';
+  ?>

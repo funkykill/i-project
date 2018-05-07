@@ -2,7 +2,7 @@
 $host = '(local)';
 $database = 'EenmaalAndermaal';
 $username = 'sa';
-$pw = 'ma0957646622';
+$pw = '';
 
 try{
     $con = new PDO("sqlsrv:Server=$host;Database=$database", "$username", "$pw");
