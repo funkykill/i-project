@@ -17,7 +17,8 @@ session_start();
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark navbar-light" style="background-color: green;">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-light"
+    style="background-color: #12B04B; position:fixed; width:100%; height:100px; z-index:10;">
         <a class="navbar-brand" href="index.php"><img class="logo" src="media/eenmaalAndermaal%20logo.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,3 +47,4 @@ session_start();
             </ul>
         </div>
     </nav>
+    <div style="height:100px;"></div>
