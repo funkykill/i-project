@@ -7,7 +7,7 @@ $breadcrumbs = array(array(
  ?>
 
  <?php function showBreadcrumb($breadcrumbs){ ?>
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="width: 100%; height: 50px; position: fixed; ">
 <?php foreach ($breadcrumbs as $breadcrumb): ?>
     <li class="breadcrumb-item"><a href="<?php echo $breadcrumb['link'] ?>"><?php echo $breadcrumb['title'] ?></a></li>
 <?php endforeach; ?>

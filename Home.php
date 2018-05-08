@@ -1,12 +1,22 @@
 <?php
-if(isset($_GET["search"])){
+if(isset($_GET["search"])||isset($_GET["ordering"])){
   $search = '%'.textkeeper('search_text').'%';
   $rubriek = textkeeper("rubriek");
+  $end = strpos($rubriek,'/');
+  $rubrikename = substr($rubriek, $end+1 ,strlen($rubriek));
+  $rubriek = substr($rubriek,0,$end);
+  $ordering = textkeeper('ordering')?textkeeper('ordering'):'Startprijs';
+  if($rubriek == -1){
+    $rubrikename = 'alle rubrieken';
+    $items = selectWithJoin('*','Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper','1=1 order by '.$ordering);
+  }
+  else{
+  echo $ordering;
   $values = array('search' => $search,'rubriek'=>$rubriek);
-  echo $search;
   $items = selectWithJoin('*','Voorwerp v','Voorwerp_in_Rubriek vr ','v.voorwerpnummer =
   vr.voorwerpnummer join Gebruiker G on G.Gebruikersnaam = v.verkoper',
-  "V.title like :search and vr.Rubriek_op_Laagste_Niveau = :rubriek",$values);
+  "V.title like :search and vr.Rubriek_op_Laagste_Niveau = :rubriek order by ".$ordering,$values);
+  }
 }else{
   $items = selectWithJoin('*','Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper');
 }
@@ -26,19 +36,21 @@ if(isset($_GET["search"])){
             <a href="#" class="btn btn-success" role="button">Registreren</a>
         </div>
     </div>
-    <div class="filter">
-       <div class="binnen">
-        <form class="form" action="index.php">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search_text" placeholder="Zoeken" aria-label="Username" aria-describedby="basic-addon1">
-                <button type="submit" class="btn btn-success" name="search">Zoeken</button>
-                <select class="form-control" id="sel1" name="rubriek">
-                  <option value="-1">Alle rubrieken</option>
-                    <?php
-                    $Rubriekname = selectWhere('*,rubriek as parent','Rubriek','rubriek = -1 order by rubrieknummer ASC');
-                    foreach ($Rubriekname as $result){
-                    ?>
-                    <option value="<?=$result['rubrieknummer']?>">
+      <div class="filter">
+        <div class="binnen">
+          <form class="form" action="index.php">
+              <div class="input-group">
+                  <input type="text" class="form-control" name="search_text"
+                placeholder="Zoeken" value="<?= textKeeper('search_text'); ?>" aria-label="Username" aria-describedby="basic-addon1">
+                  <select class="form-control" id="sel1" name="rubriek">
+                    <option value="<?= textKeeper('rubriek')?textKeeper('rubriek'):'-1/root';?>">
+                      <?=textKeeper('rubriek')?$rubrikename:'kiest u een rubriek';?></option>
+                    <option value="-1/root">Alle rubrieken</option>
+                      <?php
+                        $Rubriekname = selectWhere('*,rubriek as parent','Rubriek','rubriek = -1 order by rubrieknummer ASC');
+                        foreach ($Rubriekname as $result){
+                      ?>
+                    <option value="<?= $result['rubrieknummer'].'/'.$result['rubrieknaam'];?>">
                       <?='('.$result['parent'].') '.$result['rubrieknaam'].' ('.$result['volgnr'].')'?>
                     </option>
                       <?php
@@ -46,39 +58,39 @@ if(isset($_GET["search"])){
                       $subRubriekResults = selectWhere('* ,rubriek as parent','Rubriek','rubriek ='.$parent);
                       foreach ($subRubriekResults as $subresult){
                       ?>
-                      <option value="<?=$subresult['rubrieknummer']?>">&nbsp;&nbsp;&nbsp;
+                      <option value="<?=$subresult['rubrieknummer'].'/'.$subresult['rubrieknaam'];?>">&nbsp;&nbsp;&nbsp;
                         <?='('.$subresult['parent'] .') '.$subresult['rubrieknaam'].' ('.$subresult['volgnr'].')'?></option>
                         <?php
                         $parent1 = $subresult['rubrieknummer'];
                         $subSubRubriekResults = selectWhere('* ,rubriek as parent','Rubriek','rubriek ='.$parent1);
                         foreach ($subSubRubriekResults as $suSubbresult){
                         ?>
-                        <option  value="<?=$suSubbresult['rubrieknummer']?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <option  value="<?=$suSubbresult['rubrieknummer'].'/'.$suSubbresult['rubrieknaam'];?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <?='( '.$suSubbresult['parent'] .') '.$suSubbresult['rubrieknaam'].' ('.$suSubbresult['volgnr'].')'?></option>
                         <?php
                             }}}
                         ?>
           </select>
                 <input type="text" class="form-control" id="postal" placeholder="Uw postcode" aria-label="Username" aria-describedby="basic-addon1">
-                <select class="selectpicker">
+                <select class="selectpicker" >
                 <option>Alle Afstanden</option>
-              <option>> 3KM</option>
-              <option>> 10KM</option>
-              <option>> 15KM</option>
-            </select>
+                  <option>> 3KM</option>
+                  <option>> 10KM</option>
+                  <option>> 15KM</option>
+                </select>
+              <button type="submit" class="btn btn-success" name="search">Zoeken</button>
             </div>
-        </form>
         </div>
     </div>
     <div class="resultaat">
-        <form class="form" action="item.php">
                <label>505 resultaten..</label>
-                <select class="selectpicker">
-              <button type="submit" class="btn btn-success"><option>Prijs omlaag</option></button>
-              <option>prijs omhoog</option>
-              <option>afstand omlaag</option>
-              <option>prijs omhoog</option>
-            </select>
+                <select class="selectpicker" name="ordering" onchange="this.form.submit()">
+                  <option value="" >....</option>
+                  <option value="startprijs desc" >Prijs omlaag</option>
+                  <option value="startprijs ASC">prijs omhoog</option>
+                  <option value="3">afstand omlaag</option>
+                  <option value="4">prijs omhoog</option>
+                </select>
             <a href="Admin.php" class="btn btn-success" >Admin</a>
         </form>
     </div>
@@ -99,7 +111,6 @@ if(isset($_GET["search"])){
             <p>Verkopr: <?= $item['voornaam'] .' '. $item['achternaam']?></p>
             </div>
             </a>
-
         </div>
       <?php endforeach ?>
     </div>

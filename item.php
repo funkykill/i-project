@@ -18,6 +18,7 @@ $breadcrumbs[] = array(
 );
 showBreadcrumb($breadcrumbs);
 ?>
+<div style="height:50px;"></div>
 <div class="item_information">
   <?php  foreach ($items as $item): ?>
   <img src="media/<?=trim($item['title'])?>.JPG" alt="<?=$item['title']?>">
