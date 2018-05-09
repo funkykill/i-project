@@ -21,6 +21,7 @@ if(isset($_GET["search"])||isset($_GET["ordering"])){
   $items = selectWithJoin('*','Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper');
 }
 ?>
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
     <div class="onder-header">
         <div class="flex">
           <?php $itemCount = selectAndCountJoin('Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper');
