@@ -1,6 +1,6 @@
 <?php
 include'header.php';
-require'Includes/functie.php';
+require'Includes/function.php';
 $seconds = 2;
 // header("refresh:$seconds; url=Admin.php");
 if(isset($_GET['rubriek'])){

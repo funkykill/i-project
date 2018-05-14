@@ -1,6 +1,6 @@
 <?php
 include'header.php';
-require'Includes/functie.php';
+require'Includes/function.php';
 if(isset($_POST["insert"])){
 $values = array(150,trim($_POST["rubriekName"]),trim($_POST["rubriekParent"]));
 if($howmany = insert('Rubriek','rubrieknummer,rubrieknaam,rubriek','?,?,?',$values)){

@@ -1,6 +1,6 @@
 <?php
 include'header.php';
-require'includes/functie.php';
+require'includes/functions.php';
 ?>
 <div class="Admin">
 <div class="list-group">
