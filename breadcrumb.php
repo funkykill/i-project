@@ -1,5 +1,5 @@
 <?php
-require_once'includes/functie.php';
+require_once'includes/functions.php';
 $breadcrumbs = array(array(
   'link' => 'Index.php',
   'title'=> 'Home',
