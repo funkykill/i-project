@@ -4,7 +4,7 @@ require 'connectie.php';
 //retunert de data van database
 function selectWithJoin($gewenstecolumen = '*',$eersteTabel,$tweedeTable,$on,$where = "1=1",$values = array()){
    $sql =  $GLOBALS['con']->prepare("select $gewenstecolumen from $eersteTabel join $tweedeTable
-      on $on where $where;");
+      on $on where $where");
     $sql->execute($values);
     $row=$sql->fetchAll(PDO::FETCH_ASSOC);
     return $row;
@@ -12,23 +12,26 @@ function selectWithJoin($gewenstecolumen = '*',$eersteTabel,$tweedeTable,$on,$wh
 
 // retuneert aantal records met join statment
 
-function selectAndCountJoin($eersteTabel,$tweedeTable,$on){
-   $sql =  $GLOBALS['con']->query("select count(*) from $eersteTabel join $tweedeTable
-      on $on;");
+function selectAndCountJoin($eersteTabel,$tweedeTable,$on,$where= "1=1",$values = array()){
+   $sql =  $GLOBALS['con']->prepare("select count(*) from $eersteTabel join $tweedeTable
+      on $on where $where;");
+    $sql->execute($values);
     $row=$sql->fetchColumn();
     return $row;
 }
 //retuneert aantal records met where statment
-function selectAndCountWhere($table,$where = '1=1'){
-   $sql =  $GLOBALS['con']->query("select count(*) from $table where $where");
-    $row=$sql->fetchColumn();
-    return $row;
+function selectAndCountWhere($table,$where = '1=1',$values = array()){
+   $sql = $GLOBALS['con']->prepare("select count(*) from $table where $where");
+   $sql->execute($values);
+   $row=$sql->fetchColumn();
+   return $row;
 }
 //retuneert alle records met where statment
-function selectWhere($column = '*',$table, $where = '1=1'){
-   $sql =  $GLOBALS['con']->query("select $column from $table where $where");
-    $row=$sql->fetchAll(PDO::FETCH_ASSOC);
-    return $row;
+function selectWhere($column = '*',$table, $where = '1=1', $values = array()){
+   $sql =  $GLOBALS['con']->prepare("select $column from $table where $where");
+   $sql->execute($values);
+   $row=$sql->fetchAll(PDO::FETCH_ASSOC);
+   return $row;
 }
 
 //insert in de tabelen
@@ -55,6 +58,35 @@ function textKeeper($name){
   }
   return null;
 }
+
+function validation($source, $items = array()){
+    $erros = array();
+    foreach ($items as $item => $rules) {
+      foreach ($rules as $rule => $rule_value) {
+        $value = trim($source[$item]);
+        // echo $value;
+        if($rule ===  'verplicht' && empty($value)){
+          $erros[] = $item. ' is ' .$rule;
+        }
+        elseif (!empty($value)) {
+           switch ($rule) {
+             case 'min':
+               if (strlen($value)<$rule_value) {
+                 $erros[] = $item. ' moet meer dan ' .$rule_value;
+               }
+               break;
+               case 'max':
+               if (strlen($value)>$rule_value) {
+                 $erros[] = $item. ' moet minder dan ' .$rule_value;
+               }
+                 break;
+           }
+        }
+      }
+    }
+    return $erros;
+}
+
 
 
 ?>
