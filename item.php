@@ -1,5 +1,5 @@
 <?php
-require'includes/function.php';
+require'includes/functions.php';
 include_once'header.php';
 require_once'breadcrumb.php';
 if(textkeeper('itemId')):

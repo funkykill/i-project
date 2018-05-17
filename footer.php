@@ -23,7 +23,7 @@
             );
           }
         });
-        $(document).on('click','li',function(){
+        $(document).on('click','#suggestion_items',function(){
            var value = $(this).text();
            $("#search").val(value);
            $("#auto").html("");

@@ -1,59 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-}
-
-#myBtn {
-  display: block;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  z-index: 99;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  background-color: red;
-  color: white;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 4px;
-}
-
-#myBtn:hover {
-  background-color: #555;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body>
-
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-
-<div style="background-color:black;color:white;padding:30px">Scroll Down</div>
-<div style="background-color:lightgrey;padding:30px 30px 2500px">This example demonstrates how to create a "scroll to top" button that becomes visible when the user starts to scroll the page.</div>
-
+   <!-- Display the countdown timer in an element -->
+<p id="demo0">1</p>
+<p id="demo1">2</p>
+<div id="current" onload="myfunction()">Sep 5, 2018 15:37:25</div>
+<?php $s = '11 05, 2018 15:37:55';
+echo"
 <script>
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("myBtn").style.display = "block";
-    } else {
-        document.getElementById("myBtn").style.display = "none";
+var countDownDate = [];
+countDownDate.push(new Date('$s').getTime());
+countDownDate.push(new Date('11 05, 2018 18:40:25').getTime());
+</script>";?>
+<?php ?>
+<script>
+var teller = 0;
+var x = [];
+setInterval(function() {
+    x[teller] = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate[teller] - now;
+    console.log(teller);
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("demo"+teller).innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+    if (distance < 0) {
+      clearInterval(x[teller]);
+      document.getElementById("demo"+teller).innerHTML = "EXPIRED";
     }
-}
+    teller ++;
+    if(teller==2){
+      teller = 0;
+    }3
+  }, 1000);
+});
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-}
+
 </script>
-
 </body>
 </html>

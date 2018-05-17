@@ -26,7 +26,7 @@ $search = '%'.$_POST['q'].'%';
  $autoCompleet = selectWhere('DISTINCT title','Voorwerp',"title like '%$search%'");
  $response = '<ul>';
  foreach ($autoCompleet as $result) {
-   $response .= "<a href='#'><li style = ''>".$result['title']."</li></a>";
+   $response .= "<a href='#'><li id = 'suggestion_items'>".$result['title']."</li></a>";
  }
  $response .= '</ul>';
   exit($response);
@@ -34,6 +34,9 @@ $search = '%'.$_POST['q'].'%';
 ?>
 <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
     <div class="onder-header">
+      <?php
+    if(!isset($_SESSION['user'])):
+     ?>
         <div class="flex">
           <?php $itemCount = selectAndCountJoin('Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper');
                 $usersCount = selectAndCountWhere('Gebruiker');
@@ -47,6 +50,9 @@ $search = '%'.$_POST['q'].'%';
             <a href="log-in.php" class="btn btn-success" role="button">Inloggen</a>
             <a href="#" class="btn btn-success" role="button">Registreren</a>
         </div>
+        <?php
+        endif;
+       ?>
     </div>
       <div class="filter">
         <div class="binnen">
@@ -128,7 +134,7 @@ $search = '%'.$_POST['q'].'%';
             <h6><?= $item['title'] ?></h6>
             <div class="text">
             <p>&euro; <?= $item['Startprijs'] ?></p>
-            <p id="<?='demo'.$autoincrement++;?>">1253 32135 1535</p>
+            <p id="<?='demo'.$autoincrement++;?>"></p>
             </div>
             <p>Verkopr: <?= $item['voornaam'] .' '. $item['achternaam']?></p>
             </div>
