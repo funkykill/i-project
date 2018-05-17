@@ -27,8 +27,8 @@ else:
          echo $_SESSION['achternaam'] = $user[0]["achternaam"];
          echo $_SESSION['mailbox'] = $user[0]["Mailbox"];
          echo $_SESSION['rol'] = $user[0]["Mailbox"];
-         // header("refresh:1; url=index.php");
-         // exit();
+        header("refresh:1; url=index.php");
+        exit();
       }
     else {
       $validation[] = 'Uw email of wachtwoord is niet goed';
