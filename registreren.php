@@ -72,6 +72,9 @@ if(isset($_POST['registreren'])){
     insert('Gebruiker','Gebruikersnaam,voornaam,achternaam,adresregel1,adresregel2,
     postcode,plaatsnaam,landnaam,antwoordtekst,GeboorteDag,Mailbox,wachtwoord,vraag',
     '?,?,?,?,?,?,?,?,?,?,?,?,?',$values);
+    $wait = 5;
+    $welcome = "<h3>Welcome ".$_POST['Gebruikersnaam']." U wordt over $wait seconde naar de home pagina gestuud</h3>";
+    header("Refresh: $wait; URL=index.php");
   }
 }
  ?>
@@ -79,6 +82,11 @@ if(isset($_POST['registreren'])){
 <form class='form-horizontal'action="" method="post" >
     <h1>registeren</h1>
     <p>voer aub het formulier in om te registeren</p>
+    <?php
+    if (isset($welcome)){
+      echo $welcome;
+    }
+     ?>
     <?php foreach ($validation as $validate ):?>
     <div class="alert alert-danger">
          <?php echo $validate ?>

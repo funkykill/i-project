@@ -1,6 +1,5 @@
 <?php
 require 'connectie.php';
-
 //retunert de data van database
 function selectWithJoin($gewenstecolumen = '*',$eersteTabel,$tweedeTable,$on,$where = "1=1",$values = array()){
    $sql =  $GLOBALS['con']->prepare("select $gewenstecolumen from $eersteTabel join $tweedeTable
