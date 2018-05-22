@@ -12,7 +12,6 @@ if(isset($_GET["search"])||isset($_GET["ordering"])){
     $rubrikename = 'alle rubrieken';
     $where = "-1 =";
   }
-  echo $ordering;
   $values = array('search' => $search,'rubriek'=>$rubriek);
   $items = selectWithJoin('*','Voorwerp v','Voorwerp_in_Rubriek vr ','v.voorwerpnummer =
   vr.voorwerpnummer join Gebruiker G on G.Gebruikersnaam = v.verkoper',
@@ -36,6 +35,7 @@ $search = '%'.$_POST['q'].'%';
     <div class="onder-header">
       <?php
     if(!isset($_SESSION['user'])):
+
      ?>
         <div class="flex">
           <?php $itemCount = selectAndCountJoin('Voorwerp v','Gebruiker G ','G.Gebruikersnaam = v.verkoper');
@@ -48,7 +48,7 @@ $search = '%'.$_POST['q'].'%';
         <div class="peroneal">
             <h4>Wordt nu een lid om optimaal gebruik te maken van de website</h4>
             <a href="log-in.php" class="btn btn-success" role="button">Inloggen</a>
-            <a href="#" class="btn btn-success" role="button">Registreren</a>
+            <a href="registreren.php" class="btn btn-success" role="button">Registreren</a>
         </div>
         <?php
         endif;
@@ -171,7 +171,4 @@ $search = '%'.$_POST['q'].'%';
      }
     }
    },1000);
-
-
-
  </script>
