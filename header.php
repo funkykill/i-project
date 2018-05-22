@@ -36,14 +36,21 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="#">OVER ONS</a>
                 </li>
+                <?php if (isset($_SESSION['user'])):
+                ?>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <a class="nav-link dropdown-toggle" href="" id="dropdown01"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?=$_SESSION['user']?></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="profile.php?id=<?=$_SESSION['user']?>">Mijn pagina</a>
+                        <a class="dropdown-item" href="logOut.php">uitloggen</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
+                <?php
+                endif;
+                ?>
+
             </ul>
         </div>
     </nav>

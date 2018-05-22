@@ -44,11 +44,12 @@ function insert($tableName,$columns,$howmany,$values){
 
 //een record verwijderen
 
-function delete($tableName,$condition,$where){
+function delete($tableName,$condition,$values){
   $sql =  $GLOBALS['con']->prepare("delete from $tableName where $condition ");
-  $sql->execute($where);
+  $sql->execute($values);
   return $sql->rowCount();
 }
+
 
 function textKeeper($name){
   if(isset($_GET[$name])){
@@ -68,6 +69,12 @@ function validation($source, $items = array()){
         if($rule ===  'verplicht' && empty($value)){
           $erros[] = $item. ' is ' .$rule;
         }
+        if($rule === 'letters' && !preg_match("/^[a-zA-Z ]*$/",$value)){
+          $erros[] = $item. ' kan alleen ' .$rule.' bevatten';
+        }
+        if($rule === 'nummers' && !preg_match("/^[0-9]*$/",$value)){
+          $erros[] = $item. ' kan alleen ' .$rule.' bevatten';
+        }
         elseif (!empty($value)) {
            switch ($rule) {
              case 'min':
@@ -77,9 +84,9 @@ function validation($source, $items = array()){
                break;
                case 'max':
                if (strlen($value)>$rule_value) {
-                 $erros[] = $item. ' moet minder dan ' .$rule_value;
+                 $erros[] = $item. ' moet maximaal ' .$rule_value.' karakter';
                }
-                 break;
+               break;
            }
         }
       }

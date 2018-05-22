@@ -12,7 +12,7 @@ else:
   if (isset($_POST['log-in'])) {
     $validation = validation($_POST,array(
       'email'=>array(
-        'verplicht'=>true
+        'verplicht'=>true,
       ),
       'wachtwoord'=>array(
         'verplicht'=>true
@@ -22,13 +22,13 @@ else:
       $values = array('Mailbox' => $_POST['email'],'wachtwoord'=>$_POST['wachtwoord']);
       if($results = selectAndCountWhere('Gebruiker',"mailbox = :Mailbox and wachtwoord = :wachtwoord",$values)){
         $user = selectWhere('*',"Gebruiker","mailbox = :Mailbox and wachtwoord = :wachtwoord",$values);
-         echo $_SESSION['user'] = $user[0]["Gebruikersnaam"];
-         echo $_SESSION['voornaam'] = $user[0]["voornaam"];
-         echo $_SESSION['achternaam'] = $user[0]["achternaam"];
-         echo $_SESSION['mailbox'] = $user[0]["Mailbox"];
-         echo $_SESSION['rol'] = $user[0]["Mailbox"];
-         // header("refresh:1; url=index.php");
-         // exit();
+        $_SESSION['user'] = $user[0]["Gebruikersnaam"];
+        $_SESSION['voornaam'] = $user[0]["voornaam"];
+        $_SESSION['achternaam'] = $user[0]["achternaam"];
+        $_SESSION['mailbox'] = $user[0]["Mailbox"];
+        $_SESSION['rol'] = $user[0]["Mailbox"];
+        header("refresh:1; url=index.php");
+        exit();
       }
     else {
       $validation[] = 'Uw email of wachtwoord is niet goed';

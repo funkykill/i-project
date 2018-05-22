@@ -95,7 +95,10 @@
   border-radius: 25px;
 }
 
-.item img, .item_information img {
+.item_information img {
+  width: 100%;
+}
+.item img{
   width: 100%;
   border-radius: 25px 25px 0px 0px;
 }
@@ -141,7 +144,6 @@
   margin: 20px auto 50px auto;
   border: 2px solid gray;
   box-shadow: 10px 10px 49px -6px rgba(94, 88, 94, 1);
-  border-radius: 25px;
 }
 
 .form-control.sugestion {
@@ -202,6 +204,15 @@
 .input-group #sel1 {
   width: 50%;
 }
+.profile{
+  width: 40%;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 25px;
+}
 
 
 /* #auto ul li:last-child{
@@ -231,6 +242,19 @@
 .idLink {
   color: white;
   text-decoration: none;
+}
+
+/* alle bods */
+
+.bids{
+  width:100%;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+.registeren{
+  width: 90%;
+  margin: 10px auto 10px auto;
+  padding: 10px;
 }
 
 @media only screen and (max-width: 600px) {
