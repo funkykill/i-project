@@ -19,7 +19,8 @@ else:
       )
     ));
     if(!$validation){
-      $values = array('Mailbox' => $_POST['email'],'wachtwoord'=>$_POST['wachtwoord']);
+      $wachtwoordhash = md5($_POST['wachtwoord']);
+      $values = array('Mailbox' => $_POST['email'],'wachtwoord'=>$wachtwoordhash);
       if($results = selectAndCountWhere('Gebruiker',"mailbox = :Mailbox and wachtwoord = :wachtwoord",$values)){
         $user = selectWhere('*',"Gebruiker","mailbox = :Mailbox and wachtwoord = :wachtwoord",$values);
         $_SESSION['user'] = $user[0]["Gebruikersnaam"];
